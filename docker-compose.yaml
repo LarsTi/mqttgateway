@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+        mqttgateway:
+                build: .
+                restart: unless-stopped
+                environment:
+                        - MQTT_BROKER_ADDRESS="tcp://IP_TO_YOUR_MQTT:1883"   
+                #ports:
+                        #- "9337:9337" "Port, auf dem für Prometheus bereitgestellt wird
+ 
+networks:
+        default:

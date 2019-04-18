@@ -5,7 +5,6 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/log"
@@ -25,8 +24,8 @@ type mqttExporter struct {
 func newMQTTExporter() *mqttExporter {
 	// create a MQTT client
 	options := mqtt.NewClientOptions()
-	log.Infof("Connecting to %v", *brokerAddress)
-	options.AddBroker(*brokerAddress)
+	log.Infof("Connecting to %v", brokerAddress)
+	options.AddBroker("tcp://192.168.4.5:1883")
 	m := mqtt.NewClient(options)
 	if token := m.Connect(); token.Wait() && token.Error() != nil {
 		log.Fatal(token.Error())
@@ -51,7 +50,7 @@ func newMQTTExporter() *mqttExporter {
 	c.counterMetrics = make(map[string]*prometheus.CounterVec)
 	c.metricsLabels = make(map[string][]string)
 
-	m.Subscribe(*topic, 2, c.receiveMessage())
+	m.Subscribe(topic, 2, c.receiveMessage())
 
 	return c
 }
@@ -98,7 +97,7 @@ func (e *mqttExporter) receiveMessage() func(mqtt.Client, mqtt.Message) {
 		mutex.Lock()
 		defer mutex.Unlock()
 		t := m.Topic()
-		t = strings.TrimPrefix(m.Topic(), *prefix)
+		t = strings.TrimPrefix(m.Topic(), prefix)
 		t = strings.TrimPrefix(t, "/")
 		parts := strings.Split(t, "/")
 		if len(parts)%2 == 0 {
