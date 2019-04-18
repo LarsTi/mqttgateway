@@ -21,7 +21,7 @@ var (
 	brokerAddress = getEnv("MQTT_BROKER_ADDRESS","tcp://localhost:1883")
 	topic = getEnv("MQTT_TOPIC","prometheus/#")
 	prefix = getEnv("MQTT_PREFIX","prometheus")
-	mqttClientId = getEnv("MQTT_ID","mqtt2prometheus")
+	brokerClientId = getEnv("MQTT_CLIENT_ID","mqtt2prometheus")
 	progname  = "mqttgateway"
 )
 

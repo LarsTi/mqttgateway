@@ -55,10 +55,6 @@ Two other metrics are published, for each metric:
 (unix time, in seconds)
 - `mqtt_NAME_push_total`, the number of times a metric has been pushed
 
-## Security
-
-This project does not support authentication yet but that is planned.
-
 ## Example
 
 ```
@@ -68,6 +64,7 @@ mqtt_temperature_celcius_last_pushed_timestamp{instance="livingroom",job="ESP826
 mqtt_temperature_celcius_push_total{instance="livingroom",job="ESP8266"} 1
 temperature_celcius{instance="livingroom",job="ESP8266"} 20.2
 ```
+Another Example can be found in docker-compose.yaml.
 
 ## A note about the prometheus config
 

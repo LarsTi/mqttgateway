@@ -26,6 +26,7 @@ func newMQTTExporter() *mqttExporter {
 	options := mqtt.NewClientOptions()
 	log.Infof("Connecting to %v", brokerAddress)
 	options.AddBroker("tcp://192.168.4.5:1883")
+	options.SetClientId(brokerClientId)
 	m := mqtt.NewClient(options)
 	if token := m.Connect(); token.Wait() && token.Error() != nil {
 		log.Fatal(token.Error())
