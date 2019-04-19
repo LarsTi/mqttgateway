@@ -5,9 +5,11 @@ services:
                 build: .
                 restart: unless-stopped
                 environment:
+                        - WEB_TELEMETRY_PORT=9337
+                        - WEB_TELEMETRY_PATH=/metrics
                         - MQTT_BROKER_ADDRESS=tcp://IP_TO_YOUR_MQTT:1883
-                #ports:
-                        #- "9337:9337" "Port, auf dem für Prometheus bereitgestellt wird
- 
+                        - MQTT_TOPIC=prometheus/#
+                        - MQTT_PREFIX=prometheus
+                        - MQTT_CLIENT_ID=mqtt2prometheus 
 networks:
         default:
